@@ -23,7 +23,7 @@ analyzer:
 
 transformers:
 - dart_sass_transformer:
-    executable: sassc
+    executable: sass
 - angular2:
     entry_points: web/main.dart
 - angular2/transform/reflection_remover:
