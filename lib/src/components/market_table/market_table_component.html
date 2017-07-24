@@ -1,0 +1,18 @@
+<table class="table table-sm">
+    <thead class="thead-default">
+    <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Distance</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let market of markets; let i=index;">
+        <th class="text-center" scope="row">{{i + 1}}</th>
+        <td class="text-center">{{market.id}}</td>
+        <td>{{market.name}}</td>
+        <td class="text-center">{{market.distance}}</td>
+    </tr>
+    </tbody>
+</table>

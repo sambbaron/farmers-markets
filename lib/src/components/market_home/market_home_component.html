@@ -1,0 +1,14 @@
+<div class="container-fluid">
+    <div class="form-group">
+        <label>
+            <input type="text" id="address" class="form-control"
+                   name="address" title="Enter Address" placeholder="Enter Address or Latitude/Longitude"
+                   [(ngModel)]="geoLocation.formattedAddress" (change)="updateAddress()">
+        </label>
+        <button type="button" class="btn btn-info" title="Get Current Position" (click)="getCurrentPosition()">
+            <i class="fa fa-compass fa-lg" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+
+<market-table [geoLocation]="geoLocation"></market-table>

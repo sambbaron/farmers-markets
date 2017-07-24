@@ -1,0 +1,21 @@
+
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9000000000;
+  height: 100%;
+  width: 100%;
+
+  .progress-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

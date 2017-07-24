@@ -1,0 +1,16 @@
+<nav class="navbar navbar-light bg-faded">
+    <h1 class="navbar-brand mb-0">Farmers Markets</h1>
+</nav>
+
+<div *ngFor="let error of errors">
+    <bs-alert (close)="closeError(error)" [type]="error.errorClass" [dismissible]="true">{{error.message}}</bs-alert>
+</div>
+
+<router-outlet></router-outlet>
+
+<div class="progress-container" *ngIf="showProgress">
+    <div class="progress-icon">
+        <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
