@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:angular2/angular2.dart';
 import 'package:angular2/router.dart';
 
-import 'package:farmers_markets/src/components/base/view_helper_service.dart';
+import 'package:farmers_markets/src/components/base/view_context_service.dart';
 import 'package:farmers_markets/src/components/market_table/market_table_component.dart';
 import 'package:farmers_markets/src/models/geolocation_model.dart';
 import 'package:farmers_markets/src/services/geocoding_service.dart';
@@ -26,14 +26,14 @@ import 'package:farmers_markets/src/services/geocoding_service.dart';
 class MarketHomeComponent implements OnInit {
   final RouteParams _routeParams;
   final Router _router;
-  final ViewHelperService _viewHelperService;
+  final ViewContextService _viewContextService;
   final GeocodingService _geocodingService;
 
   String lat;
   String lng;
   GeoLocationModel geoLocation = new GeoLocationModel();
 
-  MarketHomeComponent(this._routeParams, this._router, this._viewHelperService,
+  MarketHomeComponent(this._routeParams, this._router, this._viewContextService,
       this._geocodingService);
 
   Future ngOnInit() async {
@@ -41,7 +41,7 @@ class MarketHomeComponent implements OnInit {
     lng = _routeParams.get("lng");
     if (lat != null && lng != null) {
       var requestMethod = () => _geocodingService.getLocationByLatLng(lat, lng);
-      var response = await _viewHelperService.runRequest(requestMethod);
+      var response = await _viewContextService.runRequest(requestMethod);
       if (response.parsedResponse != null) {
         geoLocation = response.parsedResponse;
       }
@@ -50,7 +50,7 @@ class MarketHomeComponent implements OnInit {
 
   Future getCurrentPosition() async {
     var requestMethod = () => _geocodingService.getFromBrowser();
-    var response = await _viewHelperService.runRequest(requestMethod);
+    var response = await _viewContextService.runRequest(requestMethod);
     if (response.parsedResponse != null) {
       geoLocation = response.parsedResponse;
     }
@@ -60,7 +60,7 @@ class MarketHomeComponent implements OnInit {
   Future updateAddress() async {
     var requestMethod = () =>
         _geocodingService.getLocationByAddress(geoLocation.formattedAddress);
-    var response = await _viewHelperService.runRequest(requestMethod);
+    var response = await _viewContextService.runRequest(requestMethod);
     if (response.parsedResponse != null) {
       geoLocation = response.parsedResponse;
     }

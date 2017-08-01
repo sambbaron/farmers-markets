@@ -2,8 +2,10 @@
     <h1 class="navbar-brand mb-0">Farmers Markets</h1>
 </nav>
 
-<div *ngFor="let error of errors">
-    <bs-alert (close)="closeError(error)" [type]="error.errorClass" [dismissible]="true">{{error.message}}</bs-alert>
+<div class="message-container">
+    <bs-alert *ngFor="let message of messages" (close)="closeMessage(message)" [type]="message.messageClass"
+              [dismissible]="true">{{message.text}}
+    </bs-alert>
 </div>
 
 <router-outlet></router-outlet>

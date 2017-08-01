@@ -4,32 +4,31 @@ import 'package:angular2/angular2.dart';
 
 import 'package:farmers_markets/src/services/requester.dart';
 
-class ErrorViewModel {
-  final String errorClass;
-  final String message;
+class MessageViewModel {
+  final String messageClass;
+  final String text;
 
-  const ErrorViewModel(this.message, [this.errorClass]);
+  const MessageViewModel(this.text, [this.messageClass = "danger"]);
 
-  String toString() => message;
+  String toString() => text;
 }
 
 @Injectable()
-class ViewHelperService {
-  final List<ErrorViewModel> errors = [];
+class ViewContextService {
+  final List<MessageViewModel> messages = [];
   bool progressOn = false;
 
   Future<ExtendedResponse> runRequest(
       Future<ExtendedResponse<dynamic>> requestMethod(),
-      {String errorClass: "danger",
-      bool runProgress: true}) async {
+      {String errorClass, bool runProgress: true}) async {
     if (runProgress) {
       progressOn = true;
     }
 
     var response = await requestMethod();
     var responseErrors = response.errors
-        .map((errorString) => new ErrorViewModel(errorString, errorClass));
-    errors.addAll(responseErrors);
+        .map((errorString) => new MessageViewModel(errorString, errorClass));
+    messages.addAll(responseErrors);
 
     if (runProgress) {
       progressOn = false;

@@ -7,7 +7,7 @@ import 'package:angular2/router.dart';
 import 'package:ng_bootstrap/ng_bootstrap.dart';
 
 import 'package:farmers_markets/src/components/market_home/market_home_component.dart';
-import 'package:farmers_markets/src/components/base/view_helper_service.dart';
+import 'package:farmers_markets/src/components/base/view_context_service.dart';
 
 @Component(
     selector: 'my-app',
@@ -16,7 +16,7 @@ import 'package:farmers_markets/src/components/base/view_helper_service.dart';
     directives: const [CORE_DIRECTIVES, ROUTER_DIRECTIVES, BS_DIRECTIVES],
     providers: const [
       ROUTER_PROVIDERS,
-      ViewHelperService,
+      ViewContextService,
       const Provider(LocationStrategy, useClass: HashLocationStrategy)
     ])
 @RouteConfig(const [
@@ -27,15 +27,15 @@ import 'package:farmers_markets/src/components/base/view_helper_service.dart';
       useAsDefault: true),
 ])
 class AppComponent {
-  final ViewHelperService _viewHelperService;
+  final ViewContextService _viewContextService;
 
-  AppComponent(this._viewHelperService);
+  AppComponent(this._viewContextService);
 
-  List<ErrorViewModel> get errors => _viewHelperService.errors;
+  List<MessageViewModel> get messages => _viewContextService.messages;
 
-  bool get showProgress => _viewHelperService.progressOn;
+  bool get showProgress => _viewContextService.progressOn;
 
-  void closeError(ErrorViewModel errorView) {
-    _viewHelperService.errors.remove(errorView);
+  void closeMessage(MessageViewModel message) {
+    _viewContextService.messages.remove(message);
   }
 }
