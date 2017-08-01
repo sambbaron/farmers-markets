@@ -8,9 +8,9 @@ environment:
 
 dependencies:
   angular2: ^3.0.0
-  dart_sass_transformer: ^0.5.0
   intl: ^0.15.0
   ng_bootstrap: any
+  transform_sass: ^0.2.4
 
 dev_dependencies:
   angular_test: ^1.0.0-beta+2
@@ -22,8 +22,7 @@ analyzer:
   strong-mode: true
 
 transformers:
-- dart_sass_transformer:
-    executable: sass
+- transform_sass
 - angular2:
     entry_points: web/main.dart
 - angular2/transform/reflection_remover:
