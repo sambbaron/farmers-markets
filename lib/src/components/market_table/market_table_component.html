@@ -5,14 +5,18 @@
         <th>ID</th>
         <th>Name</th>
         <th>Distance</th>
+        <th>Products</th>
+        <th>Schedule</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let market of markets; let i=index;">
-        <th class="text-center" scope="row">{{i + 1}}</th>
+        <td class="text-center"><strong>{{i + 1}}</strong></td>
         <td class="text-center">{{market.id}}</td>
         <td>{{market.name}}</td>
         <td class="text-center">{{market.distance}}</td>
+        <td>{{market.productsLabel}}</td>
+        <td [innerHTML]="market.scheduleHtml"></td>
     </tr>
     </tbody>
 </table>

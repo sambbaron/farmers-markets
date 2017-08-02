@@ -25,7 +25,7 @@ class UsdaMarketsService {
     if (response.success) {
       response.parsedResponse = response
           .decodedBodyList()
-          .map((json) => new FarmersMarketModel.fromJson(json))
+          .map((json) => new FarmersMarketModel.fromSearchJson(json))
           .toList();
     }
 
@@ -33,23 +33,14 @@ class UsdaMarketsService {
   }
 
   Future<ExtendedResponse<FarmersMarketModel>> getOneDetail(
-      {String id, FarmersMarketModel farmersMarket}) async {
-    if (id == null && farmersMarket == null) {
-      throw new ArgumentError("Either id or farmersMarket must be provided");
-    }
-
-    Map params = {"id": farmersMarket?.id ?? id};
+      FarmersMarketModel farmersMarket) async {
+    Map params = {"id": farmersMarket.id};
     var uri = Uri.parse("$url/mktDetail").replace(queryParameters: params);
     var request = new Request("GET", uri);
     var response = await _requester.send(request);
 
-    var jsonResponse = response.decodedBody["marketdetails"];
-    if (jsonResponse != null) {
-      if (farmersMarket != null) {
-        farmersMarket.updateFromJson(jsonResponse);
-      } else {
-        response.parsedResponse = new FarmersMarketModel.fromJson(jsonResponse);
-      }
+    if (response.success) {
+      farmersMarket.fromDetailJson(response.decodedBody["marketdetails"]);
     }
 
     return response;

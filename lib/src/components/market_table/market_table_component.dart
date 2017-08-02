@@ -10,7 +10,9 @@ import 'package:farmers_markets/src/services/usda_markets_service.dart';
 @Component(
     selector: 'market-table',
     templateUrl: 'market_table_component.html',
-    styleUrls: const ['market_table_component.css'],
+    styleUrls: const [
+      'market_table_component.css'
+    ],
     directives: const [
       CORE_DIRECTIVES,
     ],
@@ -50,6 +52,10 @@ class MarketTableComponent implements OnInit {
     var requestMethod = () => _usdaMarketsService.getAllByLocation(
         geoLocation.latitude, geoLocation.longitude);
     var response = await _viewContextService.runRequest(requestMethod);
+
     markets = response.parsedResponse;
+
+    await Future.wait(markets.map((market) => _viewContextService.runRequest(
+        () => _usdaMarketsService.getOneDetail(market))));
   }
 }
